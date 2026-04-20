@@ -1,0 +1,12 @@
+TrendPulse is a lightweight interactive machine learning project that demonstrates how real-world internet data can be transformed into personalized trend recommendations. The system collects trending topics from sources such as Google Trends, Reddit, and news headlines, processes this data to identify patterns, and presents it through an interactive interface. The user is guided through a short sequence of visual option cards where preferences are selected. These inputs are converted into a user profile that influences how trends are ranked and recommended.
+
+The backend handles the complete pipeline starting from data collection, cleaning, and storage, followed by basic natural language processing to extract meaningful topics and sentiment. This processed data is stored in a database and exposed through an API that returns ranked trends based on user input. The recommendation logic compares user preferences with extracted trend features to generate relevant suggestions. The system also produces simple graphical representations of trends over time and category distributions to make the output more interpretable during demonstration.
+
+The scraper module is responsible for fetching and updating trend data periodically. The processing module extracts keywords, assigns categories, and computes scores. The machine learning module refines trend ranking and can optionally include forecasting. The API module connects everything and serves data to the frontend. The frontend is a simple pixel-style interface where users answer questions, view recommended trends, observe visual insights, and read a short summary explaining why those trends were suggested.
+
+The project focuses on clarity and interaction rather than scale, allowing the viewer to understand how data flows from raw collection to intelligent recommendation in a transparent and engaging way.
+
+
+python install -r requirements.txt
+source .venv/bin/activate
+uvicorn api.main:app --reload
