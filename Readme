@@ -5,7 +5,7 @@ The backend handles the complete pipeline starting from data collection, cleanin
 The scraper module is responsible for fetching and updating trend data periodically. The processing module extracts keywords, assigns categories, and computes scores. The machine learning module refines trend ranking and can optionally include forecasting. The API module connects everything and serves data to the frontend. The frontend is a simple pixel-style interface where users answer questions, view recommended trends, observe visual insights, and read a short summary explaining why those trends were suggested.
 
 The project focuses on clarity and interaction rather than scale, allowing the viewer to understand how data flows from raw collection to intelligent recommendation in a transparent and engaging way.
-
+helo
 
 python install -r requirements.txt
 source .venv/bin/activate
