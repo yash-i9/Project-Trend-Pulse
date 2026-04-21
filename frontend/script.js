@@ -128,11 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Refresh Data Logic
     if (refreshDataBtn) {
+        // Initialize status from localStorage
+        const savedStatus = localStorage.getItem('refreshStatus');
+        if (savedStatus) {
+            refreshStatus.textContent = savedStatus;
+            refreshStatus.style.color = savedStatus === 'Connected successfully' ? '#4FC3F7' : 'red';
+            refreshStatus.classList.remove('hidden');
+        }
+        
         refreshDataBtn.addEventListener('click', async () => {
             refreshDataBtn.disabled = true;
             refreshDataBtn.style.opacity = '0.5';
             refreshStatus.classList.remove('hidden');
-            refreshStatus.textContent = 'Scraping active sources... This may take a moment.';
+            if (refreshStatus.textContent !== 'Connected successfully') {
+                refreshStatus.textContent = 'Scraping active sources... This may take a moment.';
+                localStorage.setItem('refreshStatus', 'Scraping active sources... This may take a moment.');
+            }
             
             try {
                 const res = await fetch(`${API_BASE}/refresh`, { method: 'POST' });
@@ -140,11 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
                 
                 refreshStatus.style.color = '#4FC3F7'; 
-                refreshStatus.textContent = `Live scraping complete! Retrieved ${data.count || 0} vectors. Ready to generate report.`;
+                refreshStatus.textContent = 'Connected successfully';
+                localStorage.setItem('refreshStatus', 'Connected successfully');
             } catch (err) {
                 console.error(err);
                 refreshStatus.style.color = 'red';
                 refreshStatus.textContent = 'Failed to trigger live scraping. Check backend server.';
+                localStorage.setItem('refreshStatus', 'Failed to trigger live scraping. Check backend server.');
             } finally {
                 refreshDataBtn.disabled = false;
                 refreshDataBtn.style.opacity = '1';
@@ -323,25 +336,46 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'trend-card';
             
             const reasonTag = rec.reason ? `<span class="badge reason">MATCH: ${rec.reason.toUpperCase()}</span>` : '';
+            const sourceLabel = rec.source_label ? `<span class="badge source">${rec.source_label.toUpperCase()}</span>` : '';
             const linkHref = rec.combined_url || '#';
+            const description = rec.description || rec.snippet || rec.raw_text || '';
+            const hasDescription = description.length > 0;
             
             card.innerHTML = `
-                <div class="trend-card-left">
-                    <h4 class="trend-title">#${index + 1}. ${rec.topic || 'Unknown Signal'}</h4>
-                    <div class="trend-meta">
-                        ${reasonTag}
+                <div class="trend-card-content">
+                    <div class="trend-card-header">
+                        <div class="trend-card-left">
+                            <h4 class="trend-title">#${index + 1}. ${rec.topic || 'Unknown Signal'}</h4>
+                            <div class="trend-meta">
+                                ${reasonTag}
+                                ${sourceLabel}
+                            </div>
+                        </div>
+                        <div class="trend-card-right">
+                            <div class="trend-score-badge">
+                                <span>SC</span>
+                                ${(rec.recommendation_score || 0).toFixed(2)}
+                            </div>
+                            ${hasDescription ? '<button class="expand-btn" title="Show details">⊕</button>' : ''}
+                            <a href="${linkHref}" target="_blank" class="source-btn">Source Data &nearr;</a>
+                        </div>
                     </div>
-                </div>
-                <div class="trend-card-right">
-                    <div class="trend-score-badge">
-                        <span>SC</span>
-                        ${(rec.recommendation_score || 0).toFixed(2)}
-                    </div>
-                    <a href="${linkHref}" target="_blank" class="source-btn">Source Data &nearr;</a>
+                    ${hasDescription ? `<div class="trend-description hidden">${description}</div>` : ''}
                 </div>
             `;
             
             recommendationsContainer.appendChild(card);
+            
+            // Add expand button functionality
+            if (hasDescription) {
+                const expandBtn = card.querySelector('.expand-btn');
+                const descriptionDiv = card.querySelector('.trend-description');
+                expandBtn.addEventListener('click', () => {
+                    descriptionDiv.classList.toggle('hidden');
+                    expandBtn.textContent = descriptionDiv.classList.contains('hidden') ? '⊕' : '⊖';
+                    expandBtn.title = descriptionDiv.classList.contains('hidden') ? 'Show details' : 'Hide details';
+                });
+            }
         });
     }
 });

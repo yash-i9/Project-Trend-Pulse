@@ -68,6 +68,18 @@ def recommend_trends(
     if not trends:
         return []
 
+    preferred_sources = {s.lower() for s in user_profile.get("preferred_sources", [])}
+    if preferred_sources:
+        filtered_trends = []
+        for t in trends:
+            t_sources = {s.lower() for s in t.get("sources", [])}
+            if t_sources.intersection(preferred_sources):
+                filtered_trends.append(t)
+        trends = filtered_trends
+
+    if not trends:
+        return []
+
     profile_text = build_profile_text(user_profile)
     if not profile_text:
         profile_text = "general trends"

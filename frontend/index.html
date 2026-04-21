@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Outfit for clean modern text, Pixelify Sans for playful accents -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF8A65'/><text x='50' y='68' font-family='Arial, sans-serif' font-size='55' font-weight='bold' fill='white' text-anchor='middle'>TP</text></svg>">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,13 +27,6 @@
             <!-- QUESTIONNAIRE SECTION -->
             <section id="questionnaire-section" class="section active">
                 
-                <div class="live-scrape-container" style="max-width: 600px; margin: 0 auto 2rem auto; text-align: center; padding: 1.5rem; background: var(--card-bg); border: 1px dashed var(--accent-orange); border-radius: 12px;">
-                    <p style="margin-bottom: 1rem; color: var(--text-main); font-weight: 600;">Ensure system has latest data streams:</p>
-                    <button id="refresh-data-btn" class="secondary-btn" style="margin-bottom: 0.5rem;">
-                        <span>&#x21bb; TRIGGER LIVE SCRAPING</span>
-                    </button>
-                    <p id="refresh-status" class="small-text hidden" style="margin: 0; color: var(--accent-orange); font-weight: 600;">Connecting to remote APIs...</p>
-                </div>
 
                 <div class="flashcard-container" id="flashcard-container">
                     
@@ -169,6 +163,14 @@
                     </div>
 
                 </div>
+
+                <div class="live-scrape-container" style="max-width: 600px; margin: 3rem auto 2rem auto; text-align: center; padding: 1.5rem; background: var(--card-bg); border: 1px dashed var(--accent-orange); border-radius: 12px;">
+                    <p style="margin-bottom: 0.8rem; color: var(--text-main); font-weight: 600; font-size: 0.9rem;">Ensure system has latest data streams:</p>
+                    <button id="refresh-data-btn" class="secondary-btn" style="margin-bottom: 0.5rem; padding: 0.3rem 0.8rem; font-size: 0.75rem; border-radius: 12px; opacity: 0.9;">
+                        <span>&#x21bb; TRIGGER LIVE SCRAPING</span>
+                    </button>
+                    <p id="refresh-status" class="small-text hidden" style="margin: 0; color: var(--accent-orange); font-weight: 600;">Connecting to remote APIs...</p>
+                </div>
             </section>
 
             <!-- LOADING / PROCESSING SECTION -->
@@ -234,7 +236,7 @@
         </main>
         
         <footer>
-            <p>TrendPulse Academic Demonstration &copy; 2026</p>
+            <p>TrendPulse - developed by Yash and Mohammad Masham &copy; 2026</p>
         </footer>
     </div>
     

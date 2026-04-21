@@ -36,7 +36,7 @@ def _fallback_data() -> List[Dict[str, Any]]:
                 "popularity": 50 + i * 6,
                 "published_at": _now_iso(),
                 "raw_text": topic,
-                "url": "https://news.google.com/",
+                "url": f"https://news.google.com/search?q={topic.replace(' ', '%20')}",
             }
         )
     return results

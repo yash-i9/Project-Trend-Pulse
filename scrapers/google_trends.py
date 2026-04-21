@@ -19,14 +19,14 @@ def _now_iso() -> str:
 
 def _fallback_data() -> List[Dict[str, Any]]:
     sample_topics = [
-        "AI tools",
-        "Stock market rally",
-        "Cricket highlights",
-        "Weather alert",
-        "Budget 2026",
-        "New smartphone launch",
-        "Election updates",
-        "Gaming release",
+        "OpenAI Releases GPT-5 Beta with Reasoning",
+        "S&P 500 Reaches All-Time High Amid Tech Rally",
+        "India vs Australia T20 Match Highlights",
+        "Severe Thunderstorm Warning in Midwest",
+        "Government Unveils Budget 2026 Priorities",
+        "Apple Announces iPhone 16 Pro Specs",
+        "2026 Midterm Elections Polls Shift Dramatically",
+        "GTA VI Trailer Breaks Viewership Records",
     ]
     items = []
     for i, topic in enumerate(sample_topics):
@@ -38,7 +38,7 @@ def _fallback_data() -> List[Dict[str, Any]]:
                 "popularity": 60 + (i * 4),
                 "published_at": _now_iso(),
                 "raw_text": topic,
-                "url": f"https://trends.google.com/trends/explore?q={topic.replace(' ', '%20')}",
+                "url": f"https://news.google.com/search?q={topic.replace(' ', '%20')}",
             }
         )
     return items
@@ -71,7 +71,7 @@ def fetch_google_trends(country_code: str = "india", limit: int = 10) -> List[Di
                     "popularity": max(100 - idx * 3, 40),
                     "published_at": _now_iso(),
                     "raw_text": topic,
-                    "url": f"https://trends.google.com/trends/explore?q={topic.replace(' ', '%20')}",
+                    "url": f"https://news.google.com/search?q={topic.replace(' ', '%20')}",
                 }
             )
 

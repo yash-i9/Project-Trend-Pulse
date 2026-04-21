@@ -22,6 +22,10 @@
 
 body {
     background-color: var(--bg-color);
+    background-image: linear-gradient(rgba(255, 243, 238, 0.93), rgba(255, 243, 238, 0.93)), url('bgg.png');
+    background-size: auto, 500px;
+    background-repeat: repeat, repeat;
+    background-blend-mode: normal, multiply;
     color: var(--text-main);
     font-family: var(--font-body);
     font-size: 16px;
@@ -379,10 +383,7 @@ body {
 .trend-card {
     background: var(--bg-color);
     border-radius: 8px;
-    padding: 1rem; /* reduced padding */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 1rem;
     border-left: 4px solid var(--accent-orange);
     transition: transform 0.2s;
 }
@@ -391,23 +392,37 @@ body {
     transform: translateX(4px);
 }
 
+.trend-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.trend-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 .trend-card-left {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    flex: 1;
 }
 
 .trend-card-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.6rem;
+    flex-shrink: 0;
 }
 
 .trend-title {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-main);
-    margin-right: 1rem;
     line-height: 1.3;
 }
 
@@ -431,6 +446,45 @@ body {
     font-weight: 600;
 }
 
+.expand-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-weight: 600;
+}
+
+.expand-btn:hover {
+    background: var(--accent-orange);
+    color: white;
+}
+
+.trend-description {
+    background: rgba(255, 255, 255, 0.5);
+    border-left: 2px solid var(--accent-orange);
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.5;
+    max-height: 300px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.trend-description.hidden {
+    display: none;
+}
+
 .badge {
     font-size: 0.7rem;
     padding: 0.1rem 0.5rem;
@@ -446,6 +500,13 @@ body {
     color: var(--accent-blue);
     border-color: rgba(79, 195, 247, 0.4);
     background: rgba(79, 195, 247, 0.05);
+}
+
+.badge.source {
+    color: #6A994E;
+    border-color: rgba(106, 153, 78, 0.4);
+    background: rgba(106, 153, 78, 0.08);
+    margin-left: 0.4rem;
 }
 
 .source-btn {
@@ -482,10 +543,10 @@ footer {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
-    .trend-card {
+    .trend-card-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.8rem;
     }
     .trend-card-right {
         width: 100%;
